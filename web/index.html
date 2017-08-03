@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="favicon.ico">
+        
+
+	<title>Web SDK - 南京熙健-SDK文档</title>
+
+        <link href="../css/bootstrap-3.0.3.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+        <link href="../css/base.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="..">南京熙健-SDK文档</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+                <li >
+                    <a href="..">Android SDK</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../ios/">IOS SDK</a>
+                </li>
+            
+            
+            
+                <li class="active">
+                    <a href="./">Web SDK</a>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                <li >
+                    <a rel="next" href="../ios/">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li class="disabled">
+                    <a rel="prev" >
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#web-sdk">Web SDK概述</a></li>
+        
+    
+        <li class="main "><a href="#web-sdk_1">Web  SDK集成指南</a></li>
+        
+    
+        <li class="main "><a href="#web-sdk-faq">Web SDK FAQ</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<h1 id="web-sdk"><font color="#4682B4" >Web SDK概述</font></h1>
+<h2 id="0.0">SDK概述</h2>
+
+<hr />
+<ul>
+<li>
+<p><a href="http://www.mhealth365.com/sdk/WEB/EcgSdkWEBDemo.zip">Web SDK Demo下载</a></p>
+</li>
+<li>
+<p>页面效果</p>
+<p><img alt="Snip20170719_Web" src="../img/Snip20170719_Web.png" /></p>
+</li>
+</ul>
+<h2 id="0.1">SDK集成</h2>
+
+<p>请参考以下文档与教程，来集成 Web SDK。</p>
+<ul>
+<li><a href="..#ios-sdk_1">Web SDK集成</a></li>
+</ul>
+<h1 id="web-sdk_1"><font color="#4682B4" >Web  SDK集成指南</font></h1>
+<h2 id="1.0">SDK概述</h2>
+
+<hr />
+<ul>
+<li>
+<p>实现方法</p>
+<ul>
+<li>SVG  ：越来越多浏览器对于SVG的支持越来越好，减少服务器的运算压力，心电图的绘制在前端通过SVG技术的来实现。</li>
+</ul>
+</li>
+<li>
+<p>功能代码集成    </p>
+<ul>
+<li>
+<p>Html 引入SVG元素</p>
+<pre><code>&lt;div id="ecgView"&gt;
+    &lt;svg id="ecg" width="1027" height="500"&gt;&lt;/svg&gt;
+&lt;/div&gt;
+</code></pre>
+</li>
+<li>
+<p>引入js文件</p>
+<pre><code>&lt;script type="text/javascript" src="js/ecg.js"&gt;&lt;/script&gt;
+</code></pre>
+</li>
+<li>
+<p>初始化 Ecg.init(oEcg, parentDiv)</p>
+<ul>
+<li>
+<p>参数说明</p>
+<ul>
+<li>
+<p>oEcg：心电图svg元素的对象</p>
+<pre><code>oEcg = document.getElementById("ecg")；
+</code></pre>
+</li>
+<li>
+<p>parentDiv：父类Div的ID值，便于调整父类Div的宽度和高度 出现多个就push多个div</p>
+<pre><code>var parentDiv = new Array();
+parentDiv.push("ecgView");
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>绘制接口  Ecg.draw(headerData, ecgData, start_time, sample)</p>
+<ul>
+<li>
+<p>参数说明</p>
+<ol>
+<li>
+<p>headerData 心电图相关信息对象，里面包括了如下信息 例:</p>
+<pre><code>var headerData = {
+        'report_user': '姓名：张三', 
+        'report_sex': '性别：男',  
+        'report_age': '年龄：20',
+        'report_hr': 'HR：80 10mm/mV 25mm/s',
+        'report_start_time': '测量时间：2017/10/30 18:51:04',
+        'report_id': "报告编号：1490951160994"
+    };
+</code></pre>
+</li>
+<li>
+<p>ecgData 心电电压值数组   </p>
+<p>2.1 直接赋值，来自自己的写ajax接口</p>
+<pre><code> 例： var ecgData1 = [-29, -54, -54, -54, -54, -54, -54, -54, -36, -51, -51, -36, -32, -32, -32, -36, -40, -47, -58, -51, -54, -73, -73, -54, -69, -65, -65, -51, -51, -32, -3, 25, 54, 73, 73, 87, 87, 76, 62, 62, 32, 3, -21, -36, -51, -51, -51, -47, -32, -47, -47, -32, -32, -32, -32, -32, -36, -36, -40, -54, -117, -175, -179, -7, 241, 574, 834, 893, 772, 479, 168, -98, -186, -219, -175, -131, -135, -135, -120, -120, -120, -120, -117, -117, -113, -113, -109, -95, -95, -91, -91, -87, -87, -87, -87, -73, -73, -87, -87, -69, -69, -54, -40, -10, 18, 32, 62, 91, 106, 120, 135, 150, 164, 164, 179, 183, 186, 183, 194, 186, 175, 164, 150, 120, 87, 73, 43, 29, 14, -29, -47, -62, -76, -76, -76, , …];
+</code></pre>
+<p>2.2 文件上传（生成ecg文件）</p>
+<p>2.3 心电图文件前两行为报告编号和采样率</p>
+<pre><code>html：
+    &lt;div style="width:100%; height:30px; margin-top:10px; padding-left:30px; clear: both;  
+    display:block;"&gt; 
+            请选择心电图数据文件：&lt;input  type="file" onchange="upload(this)"/&gt;
+    &lt;/div&gt;
+
+js：调用Ecg接口draw绘制心电图
+</code></pre>
+<p>2.4 展示心电图</p>
+<pre><code>//start_time 心电图的记录时间 sample 心电图的采样率
+function showEcgByData(data) {
+     var ecgDataArray = data.split("\n");
+     sample = ecgDataArray[1];
+    headerData.report_id = "报告编号：" + ecgDataArray[0];
+     ecgDataArray.shift(); 
+     ecgDataArray.shift();
+     Ecg.init(oEcg, parentDiv);
+    Ecg.draw(headerData, ecgDataArray, start_time, sample);
+}
+</code></pre>
+<p>2.4 上传</p>
+<pre><code>function upload(input) {
+    //支持chrome IE10
+    var data = null;
+    if (window.FileReader) {
+        var file = input.files[0];
+        filename = file.name.split(".")[0];
+        var reader = new FileReader();
+        reader.onload = function () {
+            showEcgByData(this.result); //调用显示
+        }
+        reader.readAsText(file);
+    } else if (typeof window.ActiveXObject != 'undefined') {
+        //支持IE 7 8 9 10
+        var xmlDoc;
+        xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+        xmlDoc.async = false;
+        xmlDoc.load(input.value);
+        showEcgByData(xmlDoc.xml);
+    } else if (document.implementation &amp;&amp; document.implementation.createDocument) {//支持FF
+        var xmlDoc;
+        xmlDoc = document.implementation.createDocument("", "", null);
+        xmlDoc.async = false;
+        xmlDoc.load(input.value);
+        showEcgByData(xmlDoc.xml);
+    } else {
+        alert("暂不支持此浏览器的数据获取")
+    }
+}
+</code></pre>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="web-sdk-faq"><font color="#4682B4" >Web SDK FAQ</font></h1>
+<h2 id="4.0">FAQ集合</h2>
+
+<hr /></div>
+        </div>
+
+	<footer class="col-md-12">
+		<hr>
+		
+		<p>Copyright 2013-2017  mHealth365.com All Rights Reserved <br/>苏ICP备13041211号 公司地址：南京市江宁经济技术开发区胜太路68号<br/></p>
+		
+		<p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+	</footer>
+
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script>
+        <script src="../js/base.js"></script>
+    </body>
+</html>
